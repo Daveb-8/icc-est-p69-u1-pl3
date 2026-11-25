@@ -47,10 +47,54 @@ public class Incidente implements Comparable<Incidente> {
         return registradoEn;
     }
 
+    // Se crea el metodo
+    // Lambda es tecnimante este metodo en una linea
+    /*
+        public int cantidadServicios() {
+            return servicios.size();
+        }
+    */
+
+    //Metodo sumatoria
+    /*
+        public int usuariosAfectadosTotal() {
+            int sumUserA = 0;
+            for (ServicioAfectado servicioAfectado : i.getServicios()) {
+                sumUserA += servicioAfectado.usuariosAfectados();
+            }
+            return sumUserA;
+        }
+     */
+
     @Override
     public int compareTo(Incidente otro) {
         // TODO C: definir y utilizar aquí un Comparator<Incidente> compuesto.
-        throw new UnsupportedOperationException("C: compareTo pendiente");
+        Comparator<Incidente> comparador = Comparator.comparingInt(Incidente::getSeveridad)
+                                            .thenComparingInt(Incidente::getMinutosRestantes)
+        // Ordenar datos en base a metodos calculados
+        // Sabemos servicios por incidencia, pero cada servicio tiene
+        // numero de usuarios afectados (ServicioAfectado.java)
+
+                                            // 1. COMPARAR POR CANTIDAD DE SERVICIOS servicios.size()
+                                            // Al no tener metodo que de directamente 
+                                            // el size de servicios: Crear un metodo o lambda
+                                            .thenComparing((Incidente i)-> i.getServicios().size()).reversed()
+
+                                            // Uso de un metodo para referencia
+                                            //.thenComparing(Comparator.comparingInt(Incidente::cantidadServicios)).reversed();
+
+                                            // sumatoria paea calculo de usuarios afectados por servicio
+                                            .thenComparing((Incidente i) -> {
+                                                int sumUserA = 0;
+                                                for (ServicioAfectado servicioAfectado : i.getServicios()) {
+                                                    sumUserA += servicioAfectado.usuariosAfectados();
+                                                }
+                                                return sumUserA;
+                                            })  
+                                            //.thenComparing(Comparator.comparingInt(Incidente::usuariosAfectadosTotal))
+                                            .thenComparing(Incidente::getRegistradoEn)
+                                            .thenComparing(Incidente::getCodigo, String.CASE_INSENSITIVE_ORDER);             
+        return comparador.compare(this, otro);
     }
 
     @Override
