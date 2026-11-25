@@ -78,7 +78,7 @@ public class Incidente implements Comparable<Incidente> {
                                             // 1. COMPARAR POR CANTIDAD DE SERVICIOS servicios.size()
                                             // Al no tener metodo que de directamente 
                                             // el size de servicios: Crear un metodo o lambda
-                                            .thenComparing((Incidente i)-> i.getServicios().size()).reversed()
+                                            .thenComparing(Comparator.comparingInt((Incidente i)-> i.getServicios().size()).reversed())
 
                                             // Uso de un metodo para referencia
                                             //.thenComparing(Comparator.comparingInt(Incidente::cantidadServicios)).reversed();
@@ -90,7 +90,7 @@ public class Incidente implements Comparable<Incidente> {
                                                     sumUserA += servicioAfectado.usuariosAfectados();
                                                 }
                                                 return sumUserA;
-                                            })  
+                                            }).reversed() 
                                             //.thenComparing(Comparator.comparingInt(Incidente::usuariosAfectadosTotal))
                                             .thenComparing(Incidente::getRegistradoEn)
                                             .thenComparing(Incidente::getCodigo, String.CASE_INSENSITIVE_ORDER);             
