@@ -84,13 +84,13 @@ public class Incidente implements Comparable<Incidente> {
                                             //.thenComparing(Comparator.comparingInt(Incidente::cantidadServicios)).reversed();
 
                                             // sumatoria paea calculo de usuarios afectados por servicio
-                                            .thenComparing((Incidente i) -> {
+                                            .thenComparing(Comparator.comparingInt((Incidente i) -> {
                                                 int sumUserA = 0;
                                                 for (ServicioAfectado servicioAfectado : i.getServicios()) {
                                                     sumUserA += servicioAfectado.usuariosAfectados();
                                                 }
                                                 return sumUserA;
-                                            }).reversed() 
+                                            }).reversed())
                                             //.thenComparing(Comparator.comparingInt(Incidente::usuariosAfectadosTotal))
                                             .thenComparing(Incidente::getRegistradoEn)
                                             .thenComparing(Incidente::getCodigo, String.CASE_INSENSITIVE_ORDER);             
