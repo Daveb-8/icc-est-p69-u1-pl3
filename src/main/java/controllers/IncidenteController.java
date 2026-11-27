@@ -12,7 +12,6 @@ public class IncidenteController {
     }
     public int busquedaBinaria(List<Incidente> incidentes, Incidente objetivo) {
         // TODO B: implementar búsqueda binaria utilizando compareTo.
-          incidentes.sort(null);
           int low = 0;
           int high = incidentes.size()-1;
  
